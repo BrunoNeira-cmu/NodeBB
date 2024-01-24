@@ -1228,21 +1228,21 @@ describe('Groups', () => {
         });
 
         it('should fail if the if the group is admins', (done) => {
-            socketGroups.addMember({ uid: adminUid }, { uid: 0, groupName: "administrators" }, (err) => {
+            socketGroups.addMember({ uid: adminUid }, { uid: 0, groupName: 'administrators' }, (err) => {
                 assert.equal(err.message, '[[error:not-allowed]]');
                 done();
             });
         });
 
         it('should fail if the if the group is priviledged', (done) => {
-            socketGroups.addMember({ uid: adminUid }, { uid: 4, groupName: "cid:123:privileges:read" }, (err) => {
+            socketGroups.addMember({ uid: adminUid }, { uid: 4, groupName: 'cid:123:privileges:read' }, (err) => {
                 assert.equal(err.message, '[[error:not-allowed]]');
                 done();
             });
         });
 
         it('should fail if the if the user id is falsy', (done) => {
-            socketGroups.addMember({ uid: adminUid }, { uid: 0, groupName: "cid:123:privileges:[admin:write:read]" }, (err) => {
+            socketGroups.addMember({ uid: adminUid }, { uid: 0, groupName: 'cid:123:privileges:[admin:write:read]' }, (err) => {
                 assert.equal(err.message, '[[error:invalid-data]]');
                 done();
             });
