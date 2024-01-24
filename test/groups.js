@@ -1208,6 +1208,17 @@ describe('Groups', () => {
                 done();
             });
         });
+
+        // My tests:
+
+        // for searchMembers
+        it('should fail if there is no group name', (done) => {
+            socketGroups.searchMembers({ uid: adminUid }, {}, (err) => {
+                assert.equal(err.message, '[[error:invalid-data]]');
+                done();
+            });
+        });
+
     });
 
     describe('api methods', () => {
