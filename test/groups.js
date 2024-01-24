@@ -1211,10 +1211,39 @@ describe('Groups', () => {
 
         // My tests:
 
+        // for isInvited (through acceptInvite)
+        it('should fail if there is an owner group mismatch', (done) => {
+            socketGroups.acceptInvite({ uid: adminUid }, {}, (err) => {
+                assert.equal(err.message, '[[error:invalid-group-name]]');
+                done();
+            });
+        });
+
         // for addMember
         it('should fail if there is an owner group mismatch', (done) => {
             socketGroups.addMember({ uid: adminUid }, {}, (err) => {
                 assert.equal(err.message, '[[error:invalid-group-name]]');
+                done();
+            });
+        });
+
+        it('should fail if the if the group is admins', (done) => {
+            socketGroups.addMember({ uid: adminUid }, { uid: 0, groupName: "administrators" }, (err) => {
+                assert.equal(err.message, '[[error:not-allowed]]');
+                done();
+            });
+        });
+
+        it('should fail if the if the group is priviledged', (done) => {
+            socketGroups.addMember({ uid: adminUid }, { uid: 4, groupName: "cid:123:privileges:read" }, (err) => {
+                assert.equal(err.message, '[[error:not-allowed]]');
+                done();
+            });
+        });
+
+        it('should fail if the if the user id is falsy', (done) => {
+            socketGroups.addMember({ uid: adminUid }, { uid: 0, groupName: "cid:123:privileges:[admin:write:read]" }, (err) => {
+                assert.equal(err.message, '[[error:invalid-data]]');
                 done();
             });
         });
