@@ -1211,6 +1211,14 @@ describe('Groups', () => {
 
         // My tests:
 
+        // for addMember
+        it('should fail if there is an owner group mismatch', (done) => {
+            socketGroups.addMember({ uid: adminUid }, {}, (err) => {
+                assert.equal(err.message, '[[error:invalid-group-name]]');
+                done();
+            });
+        });
+
         // for searchMembers
         it('should fail if there is no group name', (done) => {
             socketGroups.searchMembers({ uid: adminUid }, {}, (err) => {
@@ -1218,7 +1226,6 @@ describe('Groups', () => {
                 done();
             });
         });
-
     });
 
     describe('api methods', () => {
